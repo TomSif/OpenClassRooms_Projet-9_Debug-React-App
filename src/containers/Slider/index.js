@@ -67,7 +67,7 @@ const Slider = () => {
             <input
               key={eventRadio.id}
               type="radio"
-              name="radio-button"
+              name={`radio-button-${eventRadio.id}`}
               checked={index === radioIdx}
               onChange={() => setIndex(radioIdx)} // AJOUTÉ: permettre le clic sur les boutons radio
               aria-label={`Aller à l'événement ${radioIdx + 1}`}
