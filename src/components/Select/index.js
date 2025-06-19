@@ -13,43 +13,39 @@ const Select = ({
   label,
   type = "normal",
 }) => {
-  const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
+  const [selectedValue, setSelectedValue] = useState(null);
+
   const changeValue = (newValue) => {
-    onChange();
-    setValue(newValue);
-    setCollapsed(newValue);
+    setSelectedValue(newValue);
+    onChange(newValue);
+    setCollapsed(true);
   };
+
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
       <div className="Select">
         <ul>
           <li className={collapsed ? "SelectTitle--show" : "SelectTitle--hide"}>
-            {value || (!titleEmpty && "Toutes")}
+            {selectedValue || (!titleEmpty && "Toutes")}
           </li>
           {!collapsed && (
             <>
               {!titleEmpty && (
                 <li onClick={() => changeValue(null)}>
-                  <input defaultChecked={!value} name="selected" type="radio" />{" "}
-                  Toutes
+                  <input name="selected" type="radio" checked={selectedValue === null} readOnly /> Toutes
                 </li>
               )}
               {selection.map((s) => (
                 <li key={s} onClick={() => changeValue(s)}>
-                  <input
-                    defaultChecked={value === s}
-                    name="selected"
-                    type="radio"
-                  />{" "}
-                  {s}
+                  <input name="selected" type="radio" checked={selectedValue === s} readOnly /> {s}
                 </li>
               ))}
             </>
           )}
         </ul>
-        <input type="hidden" value={value || ""} name={name} />
+        <input type="hidden" name={name} value={selectedValue || ''} />
         <button
           type="button"
           data-testid="collapse-button-testid"
@@ -88,7 +84,7 @@ Select.propTypes = {
   titleEmpty: PropTypes.bool,
   label: PropTypes.string,
   type: PropTypes.string,
-}
+};
 
 Select.defaultProps = {
   onChange: () => null,
@@ -96,6 +92,6 @@ Select.defaultProps = {
   label: "",
   type: "normal",
   name: "select",
-}
+};
 
 export default Select;

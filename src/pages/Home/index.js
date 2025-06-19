@@ -2,7 +2,6 @@ import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
-
 import "./style.scss";
 import EventList from "../../containers/Events";
 import Slider from "../../containers/Slider";
@@ -11,6 +10,7 @@ import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
+
 
 const Page = () => {
   // The useData() hook provides `last`, which is the most recent event.

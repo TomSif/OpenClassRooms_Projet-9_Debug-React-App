@@ -11,46 +11,62 @@ const PER_PAGE = 9;
 
 const EventList = () => {
   const { data, error } = useData();
-  const [type, setType] = useState();
+  const [type, setType] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = ((!type ? data?.events : data?.events) || []).filter(
-    (event, index) => {
-      if (
-        (currentPage - 1) * PER_PAGE <= index &&
-        PER_PAGE * currentPage > index
-      ) {
-        return true;
-      }
-      return false;
-    }
+
+  const allEvents = data?.events || [];
+  const typeFilteredEvents = allEvents.filter(
+    (event) => !type || event.type === type
   );
+
+  const paginatedEvents = typeFilteredEvents.slice(
+    (currentPage - 1) * PER_PAGE,
+    currentPage * PER_PAGE
+  );
+
+  const totalPages = Math.ceil(typeFilteredEvents.length / PER_PAGE);
+  const pageNumber = totalPages > 0 ? totalPages : 1;
+
   const changeType = (evtType) => {
     setCurrentPage(1);
-    setType(evtType);
+    setType(evtType === "Toutes" || !evtType ? null : evtType);
   };
-  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
-  const typeList = new Set(data?.events.map((event) => event.type));
+
+  const typeList = data?.events
+    ? [...new Set(data.events.map((event) => event.type).filter(Boolean))]
+    : [];
+
+  const selectOptions = typeList;
+
+  // eslint-disable-next-line no-console
+  console.log("type actuel :", type);
+    // eslint-disable-next-line no-console
+  console.log("page actuelle :", currentPage);
+
   return (
     <>
-      {error && <div>An error occured</div>}
+      {error && <div>An error occurred</div>}
       {data === null ? (
         "loading"
       ) : (
         <>
           <h3 className="SelectTitle">Catégories</h3>
           <Select
-            selection={Array.from(typeList)}
-            onChange={(value) => (value ? changeType(value) : changeType(null))}
+            selection={selectOptions}
+            onChange={changeType}
+            titleEmpty={false}
+            label="Catégories"
+            value={type}
           />
           <div id="events" className="ListContainer">
-            {filteredEvents.map((event) => (
+            {paginatedEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
                     onClick={() => setIsOpened(true)}
                     imageSrc={event.cover}
                     title={event.title}
-                    date={new Date(event.date)}
+                    date={new Date(event.date)} // Ensure the date is a Date object
                     label={event.type}
                   />
                 )}
@@ -58,11 +74,15 @@ const EventList = () => {
             ))}
           </div>
           <div className="Pagination">
-            {[...Array(pageNumber || 0)].map((_, n) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
-                {n + 1}
-              </a>
+            {Array.from({ length: pageNumber }, (_, index) => (
+              <button
+                type="button"
+                key={index + 1}
+                onClick={() => setCurrentPage(index + 1)}
+                disabled={currentPage === index + 1}
+              >
+                {index + 1}
+              </button>
             ))}
           </div>
         </>
