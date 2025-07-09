@@ -9,6 +9,7 @@ import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
+import ModalEvent from "../../containers/ModalEvent"; 
 import { useData } from "../../contexts/DataContext";
 
 
@@ -16,7 +17,7 @@ const Page = () => {
   // The useData() hook provides `last`, which is the most recent event.
   // `last` can be null if there are no events or data is not yet loaded.
   const { last } = useData();
-
+  
   return (
     <>
       <header>
@@ -126,21 +127,21 @@ const Page = () => {
       <footer className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
-          {/* 
-            Conditionally render EventCard only if 'last' event data is available.
-            This prevents PropTypes warnings for undefined required props.
-            Also, use last.type for the label instead of a hardcoded value.
-          */}
           {last ? (
-            <EventCard
-              imageSrc={last.cover}
-              title={last.title}
-              date={new Date(last.date)}
-              small
-              label={last.type}
-            />
+            <Modal Content={<ModalEvent event={last} />}>
+              {({ setIsOpened }) => (
+                <EventCard
+                  onClick={() => setIsOpened(true)} 
+                  imageSrc={last.cover}
+                  title={last.title}
+                  date={new Date(last.date)}
+                  small
+                  label={last.type}
+                />
+              )}
+            </Modal>
           ) : (
-            <p>Pas de dernière prestation à afficher pour le moment.</p> // Placeholder when no 'last' event
+            <p>Pas de dernière prestation à afficher pour le moment.</p>
           )}
         </div>
         <div className="col contact">

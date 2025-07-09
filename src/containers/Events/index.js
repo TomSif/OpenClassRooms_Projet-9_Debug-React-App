@@ -38,11 +38,6 @@ const EventList = () => {
 
   const selectOptions = typeList;
 
-  // eslint-disable-next-line no-console
-  console.log("type actuel :", type);
-    // eslint-disable-next-line no-console
-  console.log("page actuelle :", currentPage);
-
   return (
     <>
       {error && <div>An error occurred</div>}
