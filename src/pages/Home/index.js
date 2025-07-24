@@ -14,8 +14,6 @@ import { useData } from "../../contexts/DataContext";
 
 
 const Page = () => {
-  // The useData() hook provides `last`, which is the most recent event.
-  // `last` can be null if there are no events or data is not yet loaded.
   const { last } = useData();
   
   return (
@@ -59,14 +57,10 @@ const Page = () => {
           </div>
         </section>
         <section className="EventsContainer" id="nos-realisations">
-          {" "}
-          {/* Added id for potential navigation */}
           <h2 className="Title">Nos réalisations</h2>
           <EventList />
         </section>
         <section className="PeoplesContainer" id="notre-equipe">
-          {" "}
-          {/* Added id for potential navigation */}
           <h2 className="Title">Notre équipe</h2>
           <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
           <div className="ListContainer">
@@ -118,7 +112,7 @@ const Page = () => {
             {({ setIsOpened }) => (
               <Form
                 onSuccess={() => setIsOpened(true)}
-                onError={() => null} // Consider adding actual error handling feedback
+                onError={() => null} 
               />
             )}
           </Modal>
@@ -151,8 +145,6 @@ const Page = () => {
           <div>contact@724events.com</div>
           <div>
             <a href="#twitch">
-              {" "}
-              {/* Consider making these actual links or removing href if not functional */}
               <Icon name="twitch" />
             </a>
             <a href="#facebook">
@@ -170,7 +162,7 @@ const Page = () => {
           <Logo size="large" />
           <p>
             Une agence événementielle propose des prestations de service
-            spécialisées dans la conception et l&lsquoorganisation de divers
+            spécialisées dans la conception et l&apos;organisation de divers
             événements tels que des événements festifs, des manifestations
             sportives et culturelles, des événements professionnels
           </p>

@@ -255,10 +255,10 @@
     },
     {
       "id": 17,
-      "type": "conférence",
+      "type": "soirée entreprise",
       "date": "2022-04-29T20:28:45.744Z",
       "title": "Conférence #productCON",
-      "cover": "/images/product-school-nOvIa_x_tfo-unsplash.png",
+      "cover": "/images/stem-list-EVgsAbL51Rk-unsplash.png",
       "description": "Présentation des outils analytics aux professionnels du secteur ",
       "nb_guesses": 1300,
       "periode": "24-25-26 Février",
@@ -269,12 +269,12 @@
         "1 site web dédié"
       ]
     },
-    {
+        {
       "id": 18,
-      "type": "soirée entreprise",
+      "type": "conférence",
       "date": "2022-04-29T20:28:45.744Z",
       "title": "Conférence #productCON",
-      "cover": "/images/stem-list-EVgsAbL51Rk-unsplash.png",
+      "cover": "/images/product-school-nOvIa_x_tfo-unsplash.png",
       "description": "Présentation des outils analytics aux professionnels du secteur ",
       "nb_guesses": 1300,
       "periode": "24-25-26 Février",
