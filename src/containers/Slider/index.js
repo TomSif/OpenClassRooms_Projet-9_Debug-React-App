@@ -11,25 +11,19 @@ const Slider = () => {
   const byDateDesc = data?.focus?.sort((a, b) => new Date(b.date) - new Date(a.date)) || [];
 
   useEffect(() => {
+    let cleanup;
+    
     if (byDateDesc.length > 0) {
       const interval = setInterval(() => {
-        setIndex((prev) => (prev < byDateDesc.length - 1 ? prev + 1 : 0));
+        setIndex((prev) => (prev + 1) % byDateDesc.length);
       }, 5000);
-
-      return function cleanup() {
-        clearInterval(interval);
-      };
+      
+      cleanup = () => clearInterval(interval);
     }
-
-    return undefined;
+    
+    return cleanup;
   }, [byDateDesc.length]);
-
-  useEffect(() => {
-    if (index >= byDateDesc.length && byDateDesc.length > 0) {
-      setIndex(0);
-    }
-  }, [byDateDesc.length, index]);
-
+  
   if (!data?.focus || byDateDesc.length === 0) {
     return <div className="SlideCardList">Aucun événement à afficher</div>;
   }
