@@ -120,7 +120,7 @@ const Page = () => {
       </main>
       <footer className="row">
         <div className="col presta">
-          <h3>Notre derniére prestation</h3>
+          <h3>Notre dernière prestation</h3>
           {last ? (
             <Modal Content={<ModalEvent event={last} />}>
               {({ setIsOpened }) => (
