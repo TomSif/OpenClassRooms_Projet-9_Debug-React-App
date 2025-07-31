@@ -27,12 +27,16 @@ const EventList = () => {
     }
 
     // Priority 3: Display complete interface with data
+
+    // 1. On récupère d'abord TOUS les événements
     const allEvents = data?.events || [];
-    
+
+    // 2. On applique le FILTRE par catégorie sur une nouvelle variable
     const typeFilteredEvents = allEvents.filter(
       (event) => !type || event.type === type
     );
 
+    // 3. On applique la PAGINATION sur la liste DÉJÀ FILTRÉE
     const paginatedEvents = typeFilteredEvents.slice(
       (currentPage - 1) * PER_PAGE,
       currentPage * PER_PAGE
@@ -48,7 +52,11 @@ const EventList = () => {
     const selectOptions = typeList;
 
     const changeType = (evtType) => {
+    // 1. Réinitialise toujours la pagination  
     setCurrentPage(1);
+
+    // 2. On met à jour le type sélectionné
+    // Si l'utilisateur sélectionne "Toutes", on remet le type à null donc à "zéro" (useState(null))
     setType(evtType === "Toutes" || !evtType ? null : evtType);
   };
 
